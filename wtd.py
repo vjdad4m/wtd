@@ -53,7 +53,7 @@ def OP_print(args=[]):
             TODOS = todo_file.readlines()
     
         banner = "-- WTD | What To Do? --"
-        header = "Comp. \t|  Date \t\t| Id\t\t | TODO"
+        header = "Comp. \t|  Date \t\t| Id\t\t | What To Do"
         print(' '*(len(header) - len(banner) // 2) +banner)
         print('-'*2*len(header))
         print(header)
