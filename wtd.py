@@ -22,7 +22,7 @@ def not_implemented():
 
 def exists_file():
     return os.path.exists(os.path.join(CURRENT_DIR, FILE_NAME))
-
+	
 OP_PRINT    = iota(reset=True)  # Print the current to-do list.
 OP_NEW      = iota()            # Create a new to-do list.
 OP_DELETE   = iota()            # Remove the to-do list.
@@ -124,7 +124,38 @@ def OP_add(args=[]):
         exit(1)
 
 def OP_comp(args=[]):
-    not_implemented()
+    if exists_file():
+        if len(args) > 0:
+            try:
+                todo_id = int(args[0])
+            except ValueError:
+                print("[wtd] ERROR: Argument not id.")
+                print("Usage: wtd comp <ID of to-do>")
+                exit(1)
+            
+            print("[wtd] Completing to-do %s." % str(todo_id))
+
+            with open(".wtd") as todo_file:
+                TODOS = todo_file.readlines()
+            
+            try:
+                TODOS[todo_id] = "1" + TODOS[todo_id][1:]
+            except IndexError:
+                print("[wtd] ERROR: Given index is out of range.")
+                exit(1)
+
+            with open(".wtd", "w") as todo_file:
+                todo_file.writelines(TODOS)
+               
+            print("[wtd] To-do %s marked as complete." % str(todo_id))
+
+        else:
+            print("[wtd] ERROR: No argument provided.")
+            print("Usage: wtd comp <ID of to-do>")
+            exit(1)
+    else:
+        print("[wtd] ERROR: To-do file does not exist.")
+        exit(1)
 
 def OP_help(args=[]):
     print("[wtd] Version %s." % _VERSION)
@@ -133,6 +164,9 @@ def OP_help(args=[]):
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         cmd = sys.argv[1].lower()
+        if cmd[0] == '-':
+            cmd = cmd[1:]
+        
         args = []
         if len(sys.argv) > 2:
             args = sys.argv[2:]
@@ -142,7 +176,7 @@ if __name__ == "__main__":
         except ValueError: 
             print("[wtd] ERROR: Invalid subcommand %s." % cmd)
             print_usage()
-            exit(1)
+       	    exit(1)
 
         if   cmd_idx == OP_PRINT:
             OP_print(args)
