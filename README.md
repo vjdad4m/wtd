@@ -9,11 +9,22 @@ Dependecies:
 
 - [Python3](https://www.python.org/downloads/)
 
-Usage:
+### Usage:
 
 ```
 wtd [SUBCOMMAND] <ARGS>
 ```
+
+### Subcommands:
+
+| Subcommand | Description |
+|    :---:   |    :----:   |
+| print / p  | Print the current to-do list. |
+| new   / n  | Create a new to-do list. |
+| delete/ d  | Delete the to-do list. |
+| add   / a  | Add an item to the to-do list.  |
+| com   / c  | Mark a task as completed in the to-do list. |
+| help  / h  | Display help message. |
 
 ### Todo in [.wtd](https://github.com/vjdad4m/wtd/blob/main/.wtd)
 
